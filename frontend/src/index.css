@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  --linkedin: #0077b5;
+  --instagram: #e4405f;
+  --facebook: #1877f2;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Status badges */
+.badge {
+  @apply px-2.5 py-0.5 rounded-full text-xs font-medium inline-flex items-center;
+}
+.badge-draft {
+  @apply bg-gray-100 text-gray-800;
+}
+.badge-pending {
+  @apply bg-yellow-100 text-yellow-800;
+}
+.badge-posted {
+  @apply bg-green-100 text-green-800;
+}
+.badge-failed {
+  @apply bg-red-100 text-red-800;
+}
+
+/* Platform colors */
+.platform-linkedin {
+  @apply text-[#0077b5] bg-[#0077b5]/10;
+}
+.platform-instagram {
+  @apply text-[#e4405f] bg-[#e4405f]/10;
+}
+.platform-facebook {
+  @apply text-[#1877f2] bg-[#1877f2]/10;
+}
+
+/* Cards */
+.card {
+  @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+}
+.card-hover {
+  @apply transition-all duration-200 hover:shadow-md hover:border-gray-300;
+}
+
+/* Buttons */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
+}
+.btn-primary {
+  @apply bg-primary-600 text-white hover:bg-primary-700;
+}
+.btn-secondary {
+  @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+}
+.btn-outline {
+  @apply border border-gray-300 text-gray-700 hover:bg-gray-50;
+}
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700;
+}
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Inputs */
+.input {
+  @apply w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all;
+}
+.input-error {
+  @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+}
+
+/* Textarea */
+textarea.input {
+  @apply resize-none;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full border-2 border-gray-300 border-t-primary-600;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  @apply fixed inset-0 bg-black/50 flex items-center justify-center z-50;
+}
+.modal-content {
+  @apply bg-white rounded-xl shadow-2xl max-w-lg w-full mx-4 max-h-[90vh] overflow-auto;
+}

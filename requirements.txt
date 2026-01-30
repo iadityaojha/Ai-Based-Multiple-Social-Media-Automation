@@ -1,0 +1,30 @@
+# AI Social Media Automation Platform - Dependencies
+# ================================================
+
+# Web Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+
+# Database ORM
+sqlalchemy==2.0.25
+
+# Environment Variable Management
+python-dotenv==1.0.0
+
+# LLM API Client
+openai==1.12.0
+
+# HTTP Client for API calls
+httpx==0.26.0
+
+# Background Task Scheduling
+apscheduler==3.10.4
+
+# Template Rendering
+jinja2==3.1.3
+
+# Form Data Parsing
+python-multipart==0.0.6
+
+# Date/Time handling
+python-dateutil==2.8.2

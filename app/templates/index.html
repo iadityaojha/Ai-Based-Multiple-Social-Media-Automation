@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Dashboard</title>
+    <meta name="description" content="AI-powered social media content generation and scheduling platform">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ================================
+           CSS Variables & Reset
+           ================================ */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --light: #f1f5f9;
+            --white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ================================
+           Layout
+           ================================ */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ================================
+           Header
+           ================================ */
+        header {
+            background: var(--bg-gradient);
+            padding: 24px 0;
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ================================
+           Main Content
+           ================================ */
+        main {
+            padding: 32px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ================================
+           Cards
+           ================================ */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* ================================
+           Form Elements
+           ================================ */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Checkboxes */
+        .checkbox-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkbox-item:hover {
+            background: #e2e8f0;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item.linkedin { border-left: 4px solid #0077b5; }
+        .checkbox-item.instagram { border-left: 4px solid #e4405f; }
+        .checkbox-item.facebook { border-left: 4px solid #1877f2; }
+
+        /* ================================
+           Buttons
+           ================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            color: var(--gray);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* ================================
+           Preview Cards
+           ================================ */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .preview-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .platform-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .platform-badge.linkedin { color: #0077b5; }
+        .platform-badge.instagram { color: #e4405f; }
+        .platform-badge.facebook { color: #1877f2; }
+
+        .preview-content {
+            padding: 20px;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .preview-footer {
+            padding: 16px 20px;
+            background: var(--light);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .datetime-input {
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+
+        /* ================================
+           Stats Cards
+           ================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* ================================
+           Loading & Empty States
+           ================================ */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--gray);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        /* ================================
+           Alerts
+           ================================ */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* ================================
+           Post History Table
+           ================================ */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+
+        th {
+            background: var(--light);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            font-size: 0.875rem;
+        }
+
+        .status-badge-small {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-draft { background: #e2e8f0; color: #475569; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-posted { background: #d1fae5; color: #065f46; }
+        .status-failed { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <h1>AI Social Automation</h1>
+                </div>
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>Scheduler Active</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-draft">0</div>
+                    <div class="stat-label">Drafts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-pending">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-posted">0</div>
+                    <div class="stat-label">Posted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-failed">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="alert-container"></div>
+
+            <div class="grid">
+                <!-- Left Column: Input Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <span>✨</span>
+                        <h2>Generate Content</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="generate-form">
+                            <div class="form-group">
+                                <label for="topic">Topic</label>
+                                <textarea 
+                                    id="topic" 
+                                    class="form-control" 
+                                    placeholder="Enter your AI education topic...&#10;&#10;Example: Introduction to Machine Learning and its real-world applications"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="context">Additional Context (Optional)</label>
+                                <input 
+                                    type="text" 
+                                    id="context" 
+                                    class="form-control" 
+                                    placeholder="e.g., Target audience: beginners, Focus: practical examples"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label>Target Platforms</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item linkedin">
+                                        <input type="checkbox" name="platform" value="linkedin" checked>
+                                        <span>LinkedIn</span>
+                                    </label>
+                                    <label class="checkbox-item instagram">
+                                        <input type="checkbox" name="platform" value="instagram" checked>
+                                        <span>Instagram</span>
+                                    </label>
+                                    <label class="checkbox-item facebook">
+                                        <input type="checkbox" name="platform" value="facebook" checked>
+                                        <span>Facebook</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block" id="generate-btn">
+                                <span>🚀</span>
+                                <span>Generate Content</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Preview & History -->
+                <div>
+                    <!-- Generated Content Preview -->
+                    <div class="card" id="preview-section" style="display: none;">
+                        <div class="card-header">
+                            <span>👁️</span>
+                            <h2>Preview Generated Content</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="preview-container" id="preview-container">
+                                <!-- Preview cards will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post History -->
+                    <div class="card" style="margin-top: 24px;">
+                        <div class="card-header">
+                            <span>📜</span>
+                            <h2>Recent Posts</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Topic</th>
+                                            <th>Platform</th>
+                                            <th>Status</th>
+                                            <th>Scheduled</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="posts-table">
+                                        <tr>
+                                            <td colspan="5" class="empty-state">
+                                                <div class="empty-state-icon">📝</div>
+                                                <p>No posts yet. Generate your first content!</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ================================
+        // API Helper Functions
+        // ================================
+        const API_BASE = '/api';
+
+        async function apiRequest(endpoint, options = {}) {
+            const response = await fetch(`${API_BASE}${endpoint}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                },
+                ...options
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.detail || 'An error occurred');
+            }
+            
+            return response.status === 204 ? null : response.json();
+        }
+
+        // ================================
+        // UI Helper Functions
+        // ================================
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `<span>${type === 'success' ? '✓' : type === 'error' ? '✗' : '⚠'}</span><span>${message}</span>`;
+            container.appendChild(alert);
+            
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        function setLoading(button, loading) {
+            if (loading) {
+                button.disabled = true;
+                button.innerHTML = '<span class="spinner"></span><span>Generating...</span>';
+            } else {
+                button.disabled = false;
+                button.innerHTML = '<span>🚀</span><span>Generate Content</span>';
+            }
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            return new Date(dateString).toLocaleString();
+        }
+
+        // ================================
+        // Content Generation
+        // ================================
+        document.getElementById('generate-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const topic = document.getElementById('topic').value.trim();
+            const context = document.getElementById('context').value.trim();
+            const platforms = [...document.querySelectorAll('input[name="platform"]:checked')]
+                .map(cb => cb.value);
+            
+            if (platforms.length === 0) {
+                showAlert('Please select at least one platform', 'warning');
+                return;
+            }
+            
+            const btn = document.getElementById('generate-btn');
+            setLoading(btn, true);
+            
+            try {
+                const result = await apiRequest('/generate', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        topic,
+                        platforms,
+                        additional_context: context || null
+                    })
+                });
+                
+                showAlert('Content generated successfully!');
+                displayPreviews(result);
+                loadStats();
+                loadPosts();
+            } catch (error) {
+                showAlert(error.message, 'error');
+            } finally {
+                setLoading(btn, false);
+            }
+        });
+
+        function displayPreviews(result) {
+            const section = document.getElementById('preview-section');
+            const container = document.getElementById('preview-container');
+            
+            container.innerHTML = result.posts.map(post => `
+                <div class="preview-card" data-post-id="${post.post_id}">
+                    <div class="preview-header">
+                        <div class="platform-badge ${post.platform}">
+                            ${getPlatformIcon(post.platform)}
+                            <span>${post.platform.charAt(0).toUpperCase() + post.platform.slice(1)}</span>
+                        </div>
+                        <span class="status-badge-small status-${post.status}">${post.status}</span>
+                    </div>
+                    <div class="preview-content">${escapeHtml(post.content)}</div>
+                    <div class="preview-footer">
+                        <input type="datetime-local" class="datetime-input" id="schedule-${post.post_id}">
+                        <button class="btn btn-success btn-sm" onclick="approvePost(${post.post_id})">
+                            ✓ Approve & Schedule
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="approvePost(${post.post_id}, true)">
+                            ⚡ Post Now
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            section.style.display = 'block';
+        }
+
+        function getPlatformIcon(platform) {
+            const icons = {
+                linkedin: '💼',
+                instagram: '📸',
+                facebook: '👥'
+            };
+            return icons[platform] || '📱';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ================================
+        // Post Actions
+        // ================================
+        async function approvePost(postId, immediate = false) {
+            const scheduleInput = document.getElementById(`schedule-${postId}`);
+            const scheduledTime = immediate ? null : (scheduleInput?.value || null);
+            
+            try {
+                await apiRequest(`/posts/${postId}/approve`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        scheduled_time: scheduledTime ? new Date(scheduledTime).toISOString() : null
+                    })
+                });
+                
+                showAlert(immediate ? 'Post queued for immediate publishing!' : 'Post scheduled successfully!');
+                loadStats();
+                loadPosts();
+            } catch (error) {
+                showAlert(error.message, 'error');
+            }
+        }
+
+        async function cancelPost(postId) {
+            try {
+                await apiRequest(`/posts/${postId}/cancel`, { method: 'POST' });
+                showAlert('Post cancelled');
+                loadStats();
+                loadPosts();
+            } catch (error) {
+                showAlert(error.message, 'error');
+            }
+        }
+
+        // ================================
+        // Data Loading
+        // ================================
+        async function loadStats() {
+            try {
+                const stats = await apiRequest('/stats');
+                document.getElementById('stat-draft').textContent = stats.draft;
+                document.getElementById('stat-pending').textContent = stats.pending;
+                document.getElementById('stat-posted').textContent = stats.posted;
+                document.getElementById('stat-failed').textContent = stats.failed;
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+
+        async function loadPosts() {
+            try {
+                const data = await apiRequest('/posts?limit=10');
+                const tbody = document.getElementById('posts-table');
+                
+                if (data.posts.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                <div class="empty-state-icon">📝</div>
+                                <p>No posts yet. Generate your first content!</p>
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                tbody.innerHTML = data.posts.map(post => `
+                    <tr>
+                        <td>${escapeHtml(post.topic_name.substring(0, 50))}${post.topic_name.length > 50 ? '...' : ''}</td>
+                        <td>
+                            <span class="platform-badge ${post.platform}">
+                                ${getPlatformIcon(post.platform)} ${post.platform}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge-small status-${post.status}">${post.status}</span>
+                        </td>
+                        <td>${formatDate(post.scheduled_time)}</td>
+                        <td>
+                            ${post.status === 'draft' || post.status === 'pending' ? 
+                                `<button class="btn btn-outline btn-sm" onclick="cancelPost(${post.id})">Cancel</button>` : 
+                                '-'}
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load posts:', error);
+            }
+        }
+
+        // ================================
+        // Initialize
+        // ================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            loadPosts();
+            
+            // Refresh every 30 seconds
+            setInterval(() => {
+                loadStats();
+                loadPosts();
+            }, 30000);
+        });
+    </script>
+</body>
+</html>
